@@ -17,11 +17,14 @@ This is a simple Rest API created using Express and SQLite to help those learnin
 
 ## Notes
 ### About dependecies
-- `nodemon` watches for changes to avoid having to reset the server if case of changes.
+- `nodemon` watches for changes to avoid having to reset the server if there are changes.
 - `bcrypt` hashes the passwords.
 - `sqlite` for persistency.
 - `jsonwebtoken` let us practice authentication
 
+## About the project
+- There are validations missing**
+- It needs documentation (e.i. Swagger)
 ___
 
 ### By: Gabriel Calvo Vargas
