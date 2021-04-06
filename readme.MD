@@ -1,26 +1,22 @@
 
 # Express API
 
-This is a simple Rest API created using Express and SQLite help those learning front-end technologies such as:
+This is a simple Rest API created using Express and SQLite to help those learning front-end technologies such as:
  - Vue, 
  - React
  - Angular
 
 ## Usage
 
-1. Make sure you have Node installed. (It was created using `v14.16.0`)
+1. Make sure you have `Node` installed. (It was created using `v14.16.0`)
 2. Clone the repository
 3. Open a terminal or CMD
   - Navigate to the root folder
-  - Type `npm run server`
+  - Type `npm run server` and voilà!
 
 
-## Next steps
-
-- There are some features coming soon, specially swagger documentation to better understand the API.
-
-
-## Interesting dependencies
+## Notes
+### About dependecies
 - `nodemon` watches for changes to avoid having to reset the server if case of changes.
 - `bcrypt` hashes the passwords.
 - `sqlite` for persistency.
