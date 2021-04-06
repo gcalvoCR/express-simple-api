@@ -22,9 +22,9 @@ This is a simple Rest API created using Express and SQLite to help those learnin
 - `sqlite` for persistency.
 - `jsonwebtoken` let us practice authentication
 
-## About the project
+### About the project
 - There are validations missing**
-- It needs documentation (e.i. Swagger)
+- It needs documentation (i.e. Swagger)
 ___
 
 ### By: Gabriel Calvo Vargas
