@@ -1,15 +1,16 @@
 "use strict";
 const express = require('express');
+var path = require('path');
 
+const indexRouter = require('./routes/index');
 const todosRouter = require('./routes/todos');
 const usersRouter = require('./routes/users');
 
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({
-  extended: true
-}));
+app.use(express.urlencoded({extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // CORS middleware
 const allowCrossDomain = function(req, res, next) {
@@ -20,6 +21,7 @@ const allowCrossDomain = function(req, res, next) {
 }
 
 app.use(allowCrossDomain)
+app.use('/', indexRouter);
 app.use(usersRouter)
 app.use(todosRouter)
 

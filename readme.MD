@@ -13,6 +13,7 @@ This is a simple Rest API created using Express and SQLite to help those learnin
 3. Open a terminal or CMD
   - Navigate to the root folder
   - Type `npm run server` and voilà!
+  - Open a browser and type `http://localhost:3000/`, your server should be up and running!
 
 
 ## Notes
