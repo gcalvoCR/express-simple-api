@@ -64,7 +64,7 @@ class Db {
         this.db.run(
             'INSERT INTO todos (userId,title,completed) VALUES (?,?,?)',
             data, 
-            (err) => {callback(err,this.lastID)}
+            function (err) {callback(err, this.lastID)}
         )
     }
 
@@ -80,6 +80,14 @@ class Db {
             'SELECT * FROM todos WHERE id=?', 
             id, 
             (err,row) =>{callback(err,row)}
+        )
+    }
+
+    filterTodos(limit, callback) {
+        this.db.all(
+            'SELECT * FROM todos LIMIT ?', 
+            limit,
+            function(err,rows){callback(err,rows)}
         )
     }
 

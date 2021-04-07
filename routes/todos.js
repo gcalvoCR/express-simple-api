@@ -24,13 +24,21 @@ router.post('/todos', (req, res) => {
     });
 });
 
-// Read todos
+// Read and filter todos
 router.get('/todos', (req, res) => {
-    db.selectAllTodos((err, todos) => {
-        if (err) return res.status(500).send({message: "Error on the server."});
-        res.status(200).send(todos);
-    });
+    if(req.query.limit){
+        db.filterTodos([req.query.limit],(err, todos) => {
+            if (err) return res.status(500).send({message: "Error on the server."});
+            res.status(200).send(todos);
+        });
+    } else{
+        db.selectAllTodos((err, todos) => {
+            if (err) return res.status(500).send({message: "Error on the server."});
+            res.status(200).send(todos);
+        });
+    }
 })
+
 
 // Read todo
 router.get('/todos/:id', (req, res) => {
