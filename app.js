@@ -1,16 +1,20 @@
 "use strict";
 const express = require('express');
-var path = require('path');
+const path = require('path');
+const logger = require('./middleware/logger')
+const authenticateJWT = require('./middleware/authentication')
 
 const indexRouter = require('./routes/index');
-const todosRouter = require('./routes/todos');
-const usersRouter = require('./routes/users');
+const todosRouter = require('./routes/api/todos');
+const usersRouter = require('./routes/api/users');
 
 const app = express();
 
+// Body Parser Middleware to parse request bodies
 app.use(express.json());
+
+// To handle encoded data
 app.use(express.urlencoded({extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
 
 // CORS middleware
 const allowCrossDomain = function(req, res, next) {
@@ -20,13 +24,17 @@ const allowCrossDomain = function(req, res, next) {
     next();
 }
 
+//Set static folder
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(allowCrossDomain)
+app.use(logger);
+app.use(authenticateJWT)
 app.use('/', indexRouter);
 app.use(usersRouter)
-app.use(todosRouter)
+app.use('/todos', todosRouter)
 
 let port = process.env.PORT || 3000;
 
 app.listen(port, function() {
-console.log(`Server listening on port ${port}`)
+    console.log(`Server listening on port ${port}`)
 });

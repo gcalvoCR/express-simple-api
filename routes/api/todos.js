@@ -1,12 +1,16 @@
 const express = require('express');
-const DB = require('../db');
+const DB = require('../../db');
 const router = express.Router();
 const db = new DB("sqlitedb")
 
 // #region Todos
 
 // Create todo
-router.post('/todos', (req, res) => {
+router.post('/', (req, res) => {
+    if(!req.body.title){
+        return res.status(400).json({message: "Bad request, check your request body."});
+    }
+
     db.insertTodo([1, req.body.title, req.body.completed],
     (err, id) => {
         if (err) {
@@ -19,13 +23,14 @@ router.post('/todos', (req, res) => {
                 title: req.body.title,
                 completed: req.body.completed
             }
-            res.status(200).send(todo);
+            return res.status(200).send(todo);
         }
     });
 });
 
 // Read and filter todos
-router.get('/todos', (req, res) => {
+router.get('/', (req, res) => {
+    console.log(req.headers.authorization)
     if(req.query.limit){
         db.filterTodos([req.query.limit],(err, todos) => {
             if (err) return res.status(500).send({message: "Error on the server."});
@@ -41,20 +46,20 @@ router.get('/todos', (req, res) => {
 
 
 // Read todo
-router.get('/todos/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     db.selectTodo(req.params.id, (err, todo) => {
         if (err) return res.status(500).send({message: "Error on the server."});
-        if (!todo) return res.status(404).send({message: "Todo not found."});
+        if (!todo) return res.status(404).send({message: `Todo with id ${req.params.id} not found.`});
         res.status(200).send(todo);
     });
 })
 
 // Update todo
-router.put('/todos/:id', (req, res) => {
+router.put('/:id', (req, res) => {
     db.selectTodo(req.params.id, (err, todo) => {
         if (err) return res.status(500).send({message: "Error on the server."});
         if (!todo) {
-            return res.status(404).send({message: "Todo not found."});
+            return res.status(404).send({message: `Todo with id ${req.params.id} not found.`});
         } else {
             db.updateTodo([
                 req.body.title,
@@ -70,11 +75,11 @@ router.put('/todos/:id', (req, res) => {
 })
 
 // Delete todo
-router.delete('/todos/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     db.selectTodo(req.params.id, (err, todo) => {
         if (err) return res.status(500).send({message: "Error on the server."});
         if (!todo) {
-            return res.status(404).send({message: "Todo not found."});
+            return res.status(404).send({message: `Todo with id ${req.params.id} not found.`});
         } else {
             db.deleteTodo([
                 req.params.id

@@ -1,6 +1,6 @@
 const express = require('express');
-const DB = require('../db');
-const config = require('../config');
+const DB = require('../../db');
+const config = require('../../config');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
