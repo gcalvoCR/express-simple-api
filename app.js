@@ -28,10 +28,9 @@ const allowCrossDomain = function(req, res, next) {
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(allowCrossDomain)
 app.use(logger);
-app.use(authenticateJWT)
 app.use('/', indexRouter);
 app.use(usersRouter)
-app.use('/todos', todosRouter)
+app.use('/todos', authenticateJWT, todosRouter)
 
 let port = process.env.PORT || 3000;
 
