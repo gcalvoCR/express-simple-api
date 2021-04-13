@@ -1,4 +1,4 @@
 module.exports = {
     'secret': 'supersecret',
-    'secured': false
+    'secured': true
 };

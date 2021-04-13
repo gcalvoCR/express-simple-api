@@ -1,5 +1,6 @@
 "use strict";
 const express = require('express');
+var cors = require('cors');
 const path = require('path');
 const logger = require('./middleware/logger')
 const authenticateJWT = require('./middleware/authentication')
@@ -25,8 +26,8 @@ const allowCrossDomain = function(req, res, next) {
 }
 
 //Set static folder
+app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(allowCrossDomain)
 app.use(logger);
 app.use('/', indexRouter);
 app.use(usersRouter)
